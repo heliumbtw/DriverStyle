@@ -1,0 +1,5 @@
+<resources>
+    <string name="initial_speed">км/ч</string>
+    <string name="cur_speed_text">Текущая скорость:</string>
+    <string name="background_description"> </string>
+</resources>
