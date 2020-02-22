@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -19,13 +18,21 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.example.driverstyle.App.CHANNEL_ID;
 
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +40,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setContentView(R.layout.activity_main);
         Intent serviceIntent = new Intent(this, DriveStyleService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
-        //check permission
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
-        } else {
-            statusCheck();
-            doStuff();
-
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+        statusCheck();
+        doStuff();
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
@@ -59,20 +71,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onLocationChanged(Location location) {
 
         TextView txt = this.findViewById(R.id.current_speed);
-        if (location != null) { // if coords are changing
-            Log.d("myTAG", "speed " + location.getSpeed());
-            //float nCurrentSpeed = location.getSpeed() * 3.6f;
-            //txt.setText(String.format("%.2f", nCurrentSpeed)+ " km/h" );
+        if (location != null) {
+            //Log.d("myTAG", "speed " + location.getSpeed());
             int speed=(int) ((location.getSpeed()*3600)/1000);
             txt.setText(String.valueOf(speed));
             updateNotification(String.valueOf(speed));
-        } else {
-            //txt.setText("-.- km/h");
-            //cuz 0
+            WriteCsv.writeDataByLine(getData(), String.valueOf(speed));
         }
     }
 
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 .setContentIntent(pendingIntent)
                 .build();
         NotificationManager mNotificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        assert mNotificationManager != null;
         mNotificationManager.notify(DriveStyleService.notificationId,notification);
     }
 
@@ -111,18 +121,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (lm != null) {
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,this);
-            // commented, this is from the old version
-            // this.onLocationChanged(null);
         }
-        //Toast.makeText(this,"Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
     }
 
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        assert manager != null;
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
-
         }
     }
 
@@ -144,6 +151,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         alert.show();
     }
 
+    public static String getData() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());
+        return formatter.format(curDate);
+    }/*from   w w w  . j  av  a 2  s.  c o  m*/
+
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
@@ -159,3 +173,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 }
+
+//check permission
+//        if (ActivityCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // Permission is not granted
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
