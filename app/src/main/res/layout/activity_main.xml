@@ -5,17 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/background" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main1"
-        android:layout_width="325dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="35dp"
+        android:layout_width="315dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="118dp"
         android:layout_marginEnd="35dp"
-        android:background="@drawable/border"
+        android:background="#4D7A7575"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
@@ -27,7 +40,7 @@
             android:id="@+id/speed_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="2dp"
             android:text="@string/cur_speed_text"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
@@ -39,7 +52,7 @@
             android:id="@+id/current_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="35dp"
             android:textColor="@android:color/darker_gray"
@@ -52,7 +65,7 @@
             android:id="@+id/speed_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="35dp"
             android:layout_marginBottom="35dp"
             android:text="@string/initial_speed"
@@ -61,6 +74,200 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/current_speed"
             app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/playbtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="84dp"
+        android:contentDescription="@string/playButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main1"
+        app:srcCompat="@drawable/playicon" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="60dp"
+        android:background="#4D7A7575"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playbtn">
+
+        <TextView
+            android:id="@+id/ac_text_x"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/acc_x"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ac_text_y"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/acc_y"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ac_text_x" />
+
+        <TextView
+            android:id="@+id/ac_text_z"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/acc_z"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ac_text_y" />
+
+        <TextView
+            android:id="@+id/acc_x_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/ac_text_x"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/acc_y_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="34dp"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/ac_text_y"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/acc_z_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="67dp"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/ac_text_z"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main3"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="28dp"
+        android:background="#807A7575"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playbtn">
+
+        <ImageView
+            android:id="@+id/coord_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/ypr_image_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/device_coordinates" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main4"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="4dp"
+            android:background="#CC7A7575"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/coord_image"
+            app:layout_constraintStart_toStartOf="@+id/coord_image" />
+
+        <TextView
+            android:id="@+id/rot_yaw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/Yaw"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/rot_pitch"
+            app:layout_constraintStart_toStartOf="@+id/coord_image" />
+
+        <TextView
+            android:id="@+id/rot_pitch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/Pitch"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/rot_roll"
+            app:layout_constraintStart_toStartOf="@+id/coord_image" />
+
+        <TextView
+            android:id="@+id/rot_roll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/Roll"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/yaw_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pitch_value"
+            app:layout_constraintStart_toEndOf="@+id/rot_yaw" />
+
+        <TextView
+            android:id="@+id/pitch_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/roll_value"
+            app:layout_constraintStart_toEndOf="@+id/rot_pitch" />
+
+        <TextView
+            android:id="@+id/roll_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rot_roll" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

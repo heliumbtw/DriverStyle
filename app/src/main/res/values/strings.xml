@@ -2,4 +2,13 @@
     <string name="initial_speed">км/ч</string>
     <string name="cur_speed_text">Текущая скорость:</string>
     <string name="background_description"> </string>
+    <string name="playButton"> </string>
+    <string name="acc_x">X: </string>
+    <string name="acc_y">Y: </string>
+    <string name="acc_z">Z: </string>
+    <string name="Yaw">Yaw: </string>
+    <string name="Pitch">Pitch: </string>
+    <string name="Roll">Roll: </string>
+    <string name="title_activity_finish">FinishActivity</string>
+    <string name="ypr_image_description"> </string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.driverstyle;
+package com.example.drivestyle;
 
 import android.app.Application;
 import android.app.NotificationChannel;
@@ -23,6 +23,7 @@ public class App extends Application {
             );
             serviceChannel.setSound(null, null);
             NotificationManager manager = getSystemService(NotificationManager.class);
+            assert manager != null;
             manager.createNotificationChannel(serviceChannel);
         }
     }

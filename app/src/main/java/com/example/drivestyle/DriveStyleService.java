@@ -1,4 +1,4 @@
-package com.example.driverstyle;
+package com.example.drivestyle;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -10,15 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-import static com.example.driverstyle.App.CHANNEL_ID;
+import static com.example.drivestyle.App.CHANNEL_ID;
+
 
 public class DriveStyleService extends Service {
+
     public static final int  notificationId = 1;
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-    }
+    public void onCreate() { super.onCreate(); }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -38,7 +38,6 @@ public class DriveStyleService extends Service {
                 .build();
 
         startForeground(notificationId, notification);
-        //stopSelf();
         return START_NOT_STICKY;
     }
 
@@ -52,4 +51,5 @@ public class DriveStyleService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 }
